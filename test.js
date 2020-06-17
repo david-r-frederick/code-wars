@@ -1,31 +1,48 @@
-function nextBigger(n) {
-    const possibleValues = [];
-    n = Array.from(String(n), Number);
-    for(let i = 0; i < n.length; i++){
-        for (let j = 0; j < n.length; j++) {
-            const 
-            const straight = parseInt(p.join(''));
-            const reversed = parseInt(straight.toString().split('').reverse().join(''));
-            if(!possibleValues.includes(straight)){
-                possibleValues.push(straight);
-            }
-            if(!possibleValues.includes(reversed)){
-                possibleValues.push(reversed);
-            }
+function makeTriangle(m, n) {
+    const arrayOfTriangulars = [];
+    let difference = n - m + 1;
+    const arrayOfRows = [];
+    let answerString = '';
+    let rowsNeeded;
+    let bottomRightCorner;
+    for (let i = 0; i < n; i++) {
+        let value = 0;
+        for (let j = i; j >= 1; j--) {
+            value += j;
+        }
+        arrayOfTriangulars.push(value);
+        if (value >= difference) {
+            break;
         }
     }
-    const noLittles = possibleValues
-        .filter((value) => value >= parseInt(n.join('')))
-        .sort((a, b) => a - b);
-    //compares original value to second highest value, if different, returns second
-    if (noLittles[1] > noLittles[0]) {
-        return noLittles[1];
+    if (!arrayOfTriangulars.includes(difference)) {
+        return '';
+    } else {
+        rowsNeeded = arrayOfTriangulars.indexOf(difference);
+        bottomRightCorner = rowsNeeded;
     }
-    return -1;
+    while (rowsNeeded > 0) {
+        arrayOfRows.push([]);
+        rowsNeeded--;
+    }
+    arrayOfRows[0][0] = m;
+    for (let i = bottomRightCorner - 1; i >= 0; i--) {
+        arrayOfRows[arrayOfRows.length - 1][i] = bottomRightCorner;
+        bottomRightCorner++;
+    }
+    console.log(arrayOfTriangulars);
+    return arrayOfRows;
 }
-console.log(nextBigger(513));
 
-// const arr = [1, 2, 3, 4];
-// const chunk = arr.splice(0, 2);
-// arr.splice(1, 0, ...chunk);
-// console.log(arr);
+console.log(makeTriangle(1, 21));
+
+// 3,2
+// 6,3
+// 10,4
+// 15,5
+// 21,6
+
+// 17-7=10
+// 16-8=8
+// 15-9=6
+// 14-10=4
