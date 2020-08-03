@@ -14,19 +14,13 @@
 
 function duplicateCount(text) {
     let counter = 0;
-    text = text.toUpperCase().split('').sort();
-    console.log(text);
-    for (var i = 0; i < text.length -1; i++) {
-        let mostRecentChar = text[i];
-        if (text[i] === text[i + 1]) {
-                counter++;
-                for(let j = i + 1; j <text.length - 1; j++){
-                    if(text[j] === mostRecentChar){
-                        i++;
-                    } else{}
-                }
-                
-            }
+    const textCapitalizedAndSorted = text.toUpperCase().split('').sort();
+    for (let i = 0; i < text.length; i++) {
+        const textFilteredForCurrentLetter = textCapitalizedAndSorted.filter(el => el === textCapitalizedAndSorted[i]);
+        if(textFilteredForCurrentLetter.length > 1){
+            counter++;
         }
-        return counter;
+        textCapitalizedAndSorted.splice(0, 0 + textFilteredForCurrentLetter.length - 1);
     }
+    return counter;
+}

@@ -9,28 +9,15 @@
 // "4of Fo1r pe6ople g3ood th5e the2"  -->  "Fo1r the2 g3ood 4of th5e pe6ople"
 // ""  -->  ""
 
-function order(words){
-    const splitUp = words.split(' ');
-    // const splitUp = ['is2', 'Thi1s', 'T4est', '3a']
-
-    if (words.length === 0){
-        return ''
-    } else {
-        const newArr = [];
-
-        for(let i = 0; i < splitUp.length; i++){
-                    
-            for(let j = 0; j < splitUp[i].length; j++){
-                
-                const whereAreWe = splitUp[i][j];
-                const whereAreWeAsANumber = parseInt(whereAreWe);
-                if (Number.isNaN(whereAreWeAsANumber) === false) {
-                    let currentSegment = whereAreWeAsANumber - 1;
-                    newArr[currentSegment] = splitUp[i];
-                }
-            }
-        }
-        const returnThis = newArr.join(' ');
-        return returnThis;
-    }    
-};
+function order(words) {
+    if (words.length === 0 || !words) {
+        return '';
+    }
+    const wordsArray = words.split(' ');
+    const correctlyOrdered = [];
+    for (let i = 0; i < wordsArray.length; i++) {
+        const currentWordNumber = +wordsArray[i].split('').filter(el => !!parseInt(el));
+        correctlyOrdered[+currentWordNumber - 1] = wordsArray[i];
+    }
+    return correctlyOrdered.join(' ');
+}

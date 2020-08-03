@@ -9,21 +9,19 @@
 // "(( @"     =>  "))((" 
 
 function duplicateEncode(word){
-    const wordSplitted = word.split('')
-const repeated = wordSplitted
- .map((char, index) => {
-   const wordArr = word.split('')
-   wordArr.splice(index, 1)
-   const repeats = wordArr.reduce(
-     (a, b) => (b.toLowerCase() === char.toLowerCase() ? a + 1 : a),
-     0
-   )
-   return {
-     char,
-     repeats,
-   }
- })
- .map(({ repeats }) => (repeats >= 1 ? ')' : '('))
- .join('')
-return repeated
+    if(!word || typeof word !== 'string'){
+        return;
+    }
+    const wordToLowerCase = word.toLowerCase();
+    const lowercaseArray = wordToLowerCase.split('');
+    const lettersWithCounts = {};
+    for(let i = 0; i < lowercaseArray.length; i++){
+        if(lettersWithCounts[lowercaseArray[i]]){
+            lettersWithCounts[lowercaseArray[i]] += 1;
+        } else {
+            lettersWithCounts[lowercaseArray[i]] = 1;
+        }
+    }
+    const paranthesesSubstituded = lowercaseArray.map(el => lettersWithCounts[el] > 1 ? ')' : '(').join('');
+    return paranthesesSubstituded;
 }
